@@ -56,12 +56,18 @@ input[type="time"] {
   padding: 2rem;
   background: white;
   border-bottom: 1px solid #e1e1e1;
+  margin-bottom: .9rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
   color: black;
 }
 
 .cita p {
   font-weight: bold;
   margin-bottom: .8rem;
+  
 }
 .cita p span {
   font-weight: normal;
@@ -91,3 +97,7 @@ input[type="time"] {
   text-align: center;
   font-family:  'Staatliches', cursive;
 } 
+
+.text-area{
+  resize: vertical;
+}

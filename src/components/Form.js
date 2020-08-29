@@ -15,6 +15,7 @@ const Form = ({createTask}) => {
     });
 
     const [error, handleError] = useState(false);
+    const [error2, handleError2] = useState(false);
 
     //Funciones
     const handleChange = (event) => {
@@ -27,6 +28,18 @@ const Form = ({createTask}) => {
         event.preventDefault(); //Este método evita la acción por default de un evento cualesquiera
 
         //Validando
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1;
+        let yyyy = today.getFullYear();
+        if(dd <10){
+            dd = '0' + dd;
+        }
+        if(mm < 10){
+            mm = '0' + mm;
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+
         if  (   task_name.trim() === '' || 
                 user_name.trim() === '' ||
                 task_date.trim() === '' ||
@@ -38,9 +51,15 @@ const Form = ({createTask}) => {
             }else{
                 handleError(false);
             }
+        if( task_date.trim() < today){
+            handleError2(true);
+            return;
+        }else{
+            handleError2(false);
+        }
         
 
-        //Asignando un 
+        //Asignando un ID
         task.id = uuidv4();
         
         //Creando una task
@@ -62,11 +81,18 @@ const Form = ({createTask}) => {
     return ( 
         <Fragment>
             
-            { error
+            {   error
             
             ? <p className="alerta-error">Todos los campos son obligatorios</p>
             
             : null
+            }
+            {   error2
+
+            ? <p className="alerta-error">La fecha debe ser posterior o igual a la actual</p>
+            
+            : null
+
             }
             <form
                 onSubmit={submitTask}
@@ -107,7 +133,7 @@ const Form = ({createTask}) => {
                 />
                 <label>Descripcion</label>
                 <textarea
-                    className="u-full-width"
+                    className="u-full-width text-area"
                     name="Description"
                     placeholder="Escribe una descripcion"
                     onChange={handleChange}
